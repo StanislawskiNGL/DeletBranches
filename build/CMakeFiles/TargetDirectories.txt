@@ -1,0 +1,3 @@
+/home/norbert/Pulpit/git_program/build/CMakeFiles/program_git.dir
+/home/norbert/Pulpit/git_program/build/CMakeFiles/edit_cache.dir
+/home/norbert/Pulpit/git_program/build/CMakeFiles/rebuild_cache.dir
