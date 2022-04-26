@@ -51,7 +51,7 @@ vector <string> cut_line_branches(string s)
     return branches;
 }
 
-vector <string> add_git_branch(vector<string> branches)
+vector <string> add_git_branch(int a, int b, vector<string> branches)
 {
 
     for(int i = 0; i<branches.size();i++)

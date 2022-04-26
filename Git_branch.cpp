@@ -10,6 +10,8 @@ int main()
 
     string text;
 
+    int select_start,select_end;
+
 
 
     text = save_command("ls");
@@ -18,11 +20,9 @@ int main()
 
     list_branches(branches);
 
-    branches = add_git_branch(branches);
+    branches = add_git_branch(select_start, select_end, branches);
 
-    //string branches[] = strtok(text , "\n");
-
-    //std::cout<<text<<endl;
+    
 
     
 
@@ -30,7 +30,7 @@ int main()
     {
         cout<< branches[i]<<endl;
     }
-   // std::cout << returnCode << std::endl;
+   
 
     return 0;
 }
