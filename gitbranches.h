@@ -39,7 +39,8 @@ void delete_branch(vector <string> branches, int a, int b)
 
 std::string save_command(string command)
 {
-
+    FILE* pipe1 = popen("git checkout Master", "r");
+    pclose(pipe1);
    
     FILE* pipe = popen(command.c_str(), "r");
     std::array<char, 128> buffer;

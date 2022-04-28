@@ -25,7 +25,12 @@ int main()
 
     
  
-    
+    system("cd ..");
+
+
+
+    system("cd ..");
+
 
     for(int i = 0; i<branches.size();i++)
     {
