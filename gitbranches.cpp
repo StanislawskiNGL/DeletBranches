@@ -1,7 +1,7 @@
-//#include "gitbranches.h"
+#include "gitbranches.h"
 
 
-/*
+
 
 std::string save_command(string command)
 {
@@ -88,4 +88,3 @@ void select_branches(int a, int b, vector<string> branches)
     }
 }
 
-*/
