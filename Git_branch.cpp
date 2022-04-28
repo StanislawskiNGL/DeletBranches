@@ -15,7 +15,7 @@ int main()
 
 
 
-    text = save_command("git branch");
+    text = save_command("git -C .. branch"); # TODO check it out
 
     branches = cut_line_branches(text);
 
@@ -25,7 +25,7 @@ int main()
 
     
  
-    system("cd ..");
+    system("cd ..; ls; git status");
 
 
 
