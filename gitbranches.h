@@ -37,34 +37,31 @@ void delete_branch(vector <string> branches, int a, int b)
 
 
 
-std::string save_command(string command)
+std::string save_command(string command) # TODO change name to: execute_command
 {
-    FILE* pipe1 = popen("git checkout Master", "r");
-    pclose(pipe1);
+//    FILE* pipe1 = popen("git checkout Master", "r"); # TODO remove
+  //  pclose(pipe1);
    
     FILE* pipe = popen(command.c_str(), "r");
     std::array<char, 128> buffer;
     std::string result;
     if (!pipe)
     {
-        
         return 0;
-
     }
-    while (fgets(buffer.data(), 128, pipe) != NULL) {
-      
+    while (fgets(buffer.data(), 128, pipe) != NULL) 
+    {
         result += buffer.data();
     }
 
-   
-    
-    
-    auto returnCode = pclose(pipe);
+    auto returnCode = pclose(pipe); //TODO return it too
 
     return result;
-
-
 }
+
+save_command("git checkout master");
+save_command("git branch");
+
 
  void delete_branches(int a, int b, vector<string>branches )
  {
@@ -140,13 +137,15 @@ void delete_branch(int a, int b, vector<string> branches,vector<string> copy_bra
     {
         if(a<=i && b>=i)
         {
-            FILE* pipe = popen(branches[i].c_str(), "r");
+            save_command("git branch -d " + branches[i]);
+            
+         /*   FILE* pipe = popen(branches[i].c_str(), "r");
 
                 while (fgets(buffer.data(), 128, pipe) != NULL) 
                 {
       
                     result += buffer.data();
-                }
+                }*/
 
                 check_merge = "error: The branch " + branches[i] +"  is not fully merged.\nIf you are sure you want to delete it, run 'git branch -D testing'";
 
@@ -160,9 +159,12 @@ void delete_branch(int a, int b, vector<string> branches,vector<string> copy_bra
                     {
                         copy_branches[i] = "git branch -D " + copy_branches[i];
 
-                        FILE* pipe1 = popen(copy_branches[i].c_str(), "r");
+                        FILE* pipe1 = popen(copy_branches[i].c_str(), "r"); // TODO remove
 
                         pclose(pipe1);
+                        
+                        auto force_remove_command = "git branch -D " + copy_branches[i]
+                        save_command(force_remove_command);
 
                     }
 
