@@ -1,10 +1,24 @@
+#ifndef BRANCHES_H
+#define BRANCHES_H
+
 #include "gitbranches.h"
+#include <string>
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <array>
+#include <string.h>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
 
 std::string execute_command(std::string command)
 {
    
     FILE* pipe = popen(command.c_str(), "r");
-    std::array<char, 128> buffer;
+    array <char, 128> buffer;
     std::string result;
     if (!pipe)
     {
@@ -123,3 +137,5 @@ void delete_branch(int a, int b, std::vector<std::string> branches, std::vector 
     }
 
 }
+
+#endif
