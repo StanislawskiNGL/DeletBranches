@@ -1,3 +1,5 @@
+#ifndef BRANCHES_H
+#define BRANCHES_H
 #include <string>
 #include <iostream>
 #include <cstdlib>
@@ -10,10 +12,14 @@ std::string execute_command(std::string command);
 
 std::vector <std::string> text_splitting(std::string s, char division_criterion);
 
+std::vector <std::string> add_vector(std::vector <std::string> merged_branch, std::vector <std::string>  no_merged_branch);
+
 std::vector <std::string> add_git_branch(int a, int b, std::vector <std::string> branches);
 
-void list_branches(std::vector <std::string> branches);
+void list_branches(std::vector <std::string> branches, int size_m_b, int size_n_m_b);
 
 void select_branches(int a, int b, std::vector<std::string> branches);
 
-void delete_branch(int a, int b, std::vector<std::string> branches, std::vector <std::string> copy_branches);
+void delete_branch(int a, int b, std::vector<std::string> branches, int size_m_b, int size_n_m_b);
+#endif
+

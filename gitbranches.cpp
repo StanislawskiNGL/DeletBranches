@@ -1,5 +1,4 @@
-#ifndef BRANCHES_H
-#define BRANCHES_H
+
 
 #include "gitbranches.h"
 #include <string>
@@ -18,7 +17,7 @@ std::string execute_command(std::string command)
 {
    
     FILE* pipe = popen(command.c_str(), "r");
-    array <char, 128> buffer;
+    array <char, 512> buffer;
     std::string result;
     if (!pipe)
     {
@@ -26,13 +25,14 @@ std::string execute_command(std::string command)
         return 0;
 
     }
-    while (fgets(buffer.data(), 128, pipe) != NULL) 
+    while (fgets(buffer.data(), 512, pipe) != NULL) 
     {
       
         result += buffer.data();
     }
     
     auto returnCode = pclose(pipe);
+   
 
     return result;
 
@@ -54,26 +54,36 @@ std::vector <std::string> text_splitting(std::string s, char division_criterion)
     return branches;
 }
 
-std::vector <std::string> add_git_branch(int a, int b, std::vector <std::string> branches)
+std::vector <std::string> add_vector(std::vector <std::string> merged_branch, std::vector <std::string>  no_merged_branch)
 {
+    std::vector <std::string> branches;
 
-    for(int i = 0; i<branches.size();i++)
+    for(int i = 0; i< merged_branch.size();i++)
     {
-        if(a>=i && b<=i)
-        {
-        branches[i] = "git branch -d " + branches[i];
-        }
+        branches.push_back(merged_branch[i]);
+    }
+
+    for(int i = 0; i< merged_branch.size();i++)
+    {
+        branches.push_back(no_merged_branch[i]);
     }
 
     return branches;
-
 }
 
-void list_branches(std::vector <std::string> branches)
+void list_branches(std::vector <std::string> branches, int size_m_b, int size_n_m_b)
 {
+
     for(int i = 0; i< branches.size();i++)
     {
+        if (i<size_m_b)
+        {
         std::cout<<i<<" "<<branches[i]<<std::endl;
+        }
+        else
+        {
+            std::cout<<i<<" "<<branches[i]<<" NO MERGED"<<std::endl;
+        }
     }
 }
 
@@ -92,40 +102,40 @@ void select_branches(int a, int b, std::vector <std::string> branches)
     }
 }
 
-void delete_branch(int a, int b, std::vector<std::string> branches, std::vector <std::string> copy_branches)
+void delete_branch(int a, int b, std::vector<std::string> branches, int size_m_b, int size_n_m_b)
 {
 
-    std::string result;
+    bool flag = true;
 
-    char check_answer[1];
-
-    std::string check_merge ;
-
-    std::vector <std::string> check_error ;
-
-
+    std:: string check_answer;
 
     for (int i = 0; i< branches.size();i++)
     {
         if(a<=i && b>=i)
         {
+            if((i-size_m_b)==(size_n_m_b-1))
+            {
 
-            check_merge =  execute_command(branches[i]);
+            flag = false;
 
-            check_error = text_splitting(check_merge, ' ');
+            }
+
+            if(flag)
+            {
+                execute_command("git  branch -d " + branches[i]);
+            }
 
 
-            if("error" == check_error[1])
+            else
                 {
-                    std::cout << "Do you want to delete: " << copy_branches[i]<<" (Y/N)"<<std::endl;
+                    std::cout << "Do you want to delete: " << branches[i]<<" (Y/N)"<<std::endl;
 
-                    std::cin >> check_answer[0];
+                    std::cin >> check_answer;
 
-                    if (check_answer == "Y" || check_answer == "y" )
+                    if (check_answer == "Y" || check_answer == "y")
                     {
-                        copy_branches[i] = "git branch -D " + copy_branches[i];
-
-                        execute_command(copy_branches[i]);
+                        
+                        execute_command("git branch -D" + branches[i]);
 
                     }
 
@@ -138,4 +148,4 @@ void delete_branch(int a, int b, std::vector<std::string> branches, std::vector 
 
 }
 
-#endif
+

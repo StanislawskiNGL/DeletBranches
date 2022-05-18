@@ -6,30 +6,45 @@
 int main()
 {
     
-    std::vector <std::string> branches, copy_branches;
+    std::vector <std::string> no_merged_branches, copy_branches, merged_branches, branches;
 
-    std::string text;
+    std::string text1,text2, not_split_branches;
 
-    int select_first,select_end;
+    int select_first,select_end, size_of_no_merged_branches_vector,size_of_merged_branches_vector,size_of_branches_vector;
 
-    text = execute_command("git branch");
+    text1 = execute_command("git branch --merge");
 
-    branches = text_splitting(text , '\n');
+    text2 = execute_command("git branch --no-merge");
 
-    copy_branches = branches;
+    not_split_branches = text1 + text2;
 
-    list_branches(branches);
+    merged_branches = text_splitting(text1, '\n');
+
+    size_of_merged_branches_vector = merged_branches.size();
+
+    no_merged_branches = text_splitting(text2, '\n');
+
+    size_of_no_merged_branches_vector = no_merged_branches.size();
+
+    branches = text_splitting(not_split_branches, '\n');
+
+    size_of_branches_vector = branches.size();
+
+    //Why it doesn't work, it just pops up an exception
+
+   // no_merged_branches = text_splitting(execute_command("git branch --no-merged"), '\n');
+
+   // merged_branches = text_splitting(execute_command("git branch --merged"), '\n');
+  //  
+  //  branches = add_vector(merged_branches, no_merged_branches );
+
+    list_branches(branches,size_of_merged_branches_vector,size_of_no_merged_branches_vector);
 
     std::cout<<"select branches to be removed"<< std::endl;
 
     std::cin>> select_first >> select_end;
 
-    select_branches(select_first, select_end, branches);
-
-
-    branches = add_git_branch(select_first, select_end, branches);
-
-    delete_branch(select_first, select_end, branches, copy_branches);
+    delete_branch(select_first, select_end, branches, size_of_merged_branches_vector, size_of_no_merged_branches_vector);
 
     return 0;
 }
