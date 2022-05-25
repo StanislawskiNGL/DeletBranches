@@ -14,7 +14,7 @@ Branches::Branches()
 
         size_merged_branches = text_splitting(execute_command("git branch --merged"),'\n').size();
 
-        size_no_merged_branches = text_splitting(execute_command("git branch --no-merged"),'/n').size();
+        size_no_merged_branches = text_splitting(execute_command("git branch --no-merged"),'\n').size();
 
         branches = text_splitting(add_branches, '\n');
 
