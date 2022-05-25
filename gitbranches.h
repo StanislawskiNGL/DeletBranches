@@ -5,21 +5,41 @@
 #include <cstdlib>
 #include <cstdio>
 #include <array>
+#include <string.h>
 #include <sstream>
 #include <vector>
 
-std::string execute_command(std::string command);
+class Branches
+{
+    private:
 
-std::vector <std::string> text_splitting(std::string s, char division_criterion);
+    std::vector<std::string> branches;
 
-std::vector <std::string> add_vector(std::vector <std::string> merged_branch, std::vector <std::string>  no_merged_branch);
+    int size_merged_branches,size_no_merged_branches;
 
-std::vector <std::string> add_git_branch(int a, int b, std::vector <std::string> branches);
 
-void list_branches(std::vector <std::string> branches, int size_m_b, int size_n_m_b);
+    public:
 
-void select_branches(int a, int b, std::vector<std::string> branches);
+    Branches();
+    
 
-void delete_branch(int a, int b, std::vector<std::string> branches, int size_m_b, int size_n_m_b);
+    std::vector<std::string> get_branches();
+
+    std::string execute_command(std::string command);
+
+    std::vector <std::string> text_splitting(std::string s, char division_criterion);
+
+    std::vector <std::string> add_git_branch(int a, int b, std::vector <std::string> branches);
+
+    void list_branches();
+
+    void select_branches(int a, int b, std::vector<std::string> branches);
+
+    void delete_branch(int a, int b);
+
+    void swap_master();
+
+};
+
 #endif
 
