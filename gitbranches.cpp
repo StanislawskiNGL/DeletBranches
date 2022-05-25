@@ -10,7 +10,7 @@ Branches::Branches()
 {
         std::string add_branches;
 
-        add_branches = execute_command("git branch --merged") + execute_command("git branch --no_merged");
+        add_branches = execute_command("git branch --merged") + execute_command("git branch --no-merged");
 
         size_merged_branches = text_splitting(execute_command("git branch --merged"),'\n').size();
 
