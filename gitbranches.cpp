@@ -23,28 +23,21 @@ Branches::Branches()
 
 std::string Branches::execute_command(std::string command)
 {
-   
     FILE* pipe = popen(command.c_str(), "r");
     array <char, 512> buffer;
     std::string result;
     if (!pipe)
     {
-        
         return 0;
-
     }
     while (fgets(buffer.data(), 512, pipe) != NULL) 
     {
-      
         result += buffer.data();
     }
     
     auto returnCode = pclose(pipe);
-   
 
     return result;
-
-
 }
 
 std::vector <std::string> Branches::text_splitting(std::string s, char division_criterion)
@@ -69,11 +62,11 @@ void Branches::list_branches()
     {
         if (i<size_merged_branches)
         {
-        std::cout<<i<<" "<<branches[i]<<std::endl;
+            std::cout<<i<<" "<<branches[i]<<std::endl;
         }
         else
         {
-            std::cout<<i<<" "<<branches[i]<<" NO MERGED"<<std::endl;
+            std::cout<<i<<" "<<branches[i]<<" (NOT MERGED)"<<std::endl;
         }
     }
 }
@@ -95,10 +88,9 @@ void Branches::select_branches(int a, int b, std::vector <std::string> branches)
 
 void Branches::delete_branch(int a, int b)
 {
-
     bool flag = true;
 
-    std:: string check_answer;
+    std::string check_answer;
 
     for (int i = 0; i< branches.size();i++)
     {
@@ -106,25 +98,21 @@ void Branches::delete_branch(int a, int b)
         {
             if(i<size_no_merged_branches)
             {
-
-            flag = false;
-
+               flag = false;
             }
 
             if(flag == true)
             {
                 execute_command("git  branch -d " + branches[i]);
             }
-
             else
-                {
-                    std::cout << "Do you want to delete: " << branches[i]<<" (Y/N)"<<std::endl;
+            {
+                std::cout << "Do you want to delete: " << branches[i]<<" (Y/N)"<<std::endl;
 
                     std::cin >> check_answer;
 
                     if (check_answer == "Y" || check_answer == "y")
-                    {
-                        
+                    {                        
                         execute_command("git branch -D" + branches[i]);
 
                     }
@@ -140,15 +128,15 @@ void Branches::delete_branch(int a, int b)
 
 void Branches::swap_master()
 {
+    const auto master_branch = "master";
     for(int i = 0 ; i < branches.size(); i++ )
     {
-        if(branches[i]=="master" || branches[i]=="* master" )
+        # TODO check if string.find can be used
+        if(branches[i]==master_branch" || branches[i]== ("* " + master_branch) )
         {
             branches[i].swap(branches[0]);
             break;
         }
-    }
-
-    
+    }    
 }
 
