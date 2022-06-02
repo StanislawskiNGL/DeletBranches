@@ -14,7 +14,7 @@ Branches::Branches()
 
         size_merged_branches = text_splitting(execute_command("git branch --merged"),'\n').size();
 
-        size_no_merged_branches = text_splitting(execute_command("git branch --no-merged"),'/n').size();
+        size_no_merged_branches = text_splitting(execute_command("git branch --no-merged"),'\n').size();
 
         branches = text_splitting(add_branches, '\n');
 
@@ -78,7 +78,7 @@ void Branches::list_branches()
     }
 }
 
-void Branches::select_branches(int a, int b, std::vector <std::string> branches)
+void Branches::select_branches(int a, int b)
 {
     for(int i=0;i<branches.size();i++)
     {

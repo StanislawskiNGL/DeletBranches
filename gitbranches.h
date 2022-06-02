@@ -29,11 +29,11 @@ class Branches
 
     std::vector <std::string> text_splitting(std::string s, char division_criterion);
 
-    std::vector <std::string> add_git_branch(int a, int b, std::vector <std::string> branches);
+    std::vector <std::string> add_git_branch(int a, int b);
 
     void list_branches();
 
-    void select_branches(int a, int b, std::vector<std::string> branches);
+    void select_branches(int a, int b);
 
     void delete_branch(int a, int b);
 

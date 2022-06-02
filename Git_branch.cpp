@@ -1,9 +1,4 @@
-
 #include "gitbranches.h"
-
-
-
-
 
 int main()
 {
